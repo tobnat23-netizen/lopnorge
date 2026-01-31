@@ -82,9 +82,17 @@ p {
 /* Filters */
 .filters {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+
+  /* 5 filter-felt + en egen "auto"-kolonne til knappen (hindrer overlap) */
+  grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+
   gap: 12px;
   align-items: end;
+}
+
+/* CRITICAL: allow grid items to shrink instead of overflowing */
+.filters > * {
+  min-width: 0;
 }
 
 .filters label {
@@ -103,6 +111,11 @@ select {
   color: var(--text);
   outline: none;
   transition: border-color 120ms ease, box-shadow 120ms ease;
+
+  /* keep controls inside their grid cell */
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 input:focus,
@@ -122,7 +135,10 @@ button {
   font-weight: 600;
   transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+
+  /* keep button label on one line (safe because button is now in auto column) */
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -140,6 +156,10 @@ button:active {
 .filters > button {
   height: 42px;
   align-self: end;
+
+  /* IMPORTANT: keep it inside its cell */
+  justify-self: stretch;
+  max-width: 100%;
 }
 
 /* Red button */
