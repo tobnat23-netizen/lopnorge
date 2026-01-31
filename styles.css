@@ -40,7 +40,7 @@ body {
 /* Header */
 header {
   border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
+  padding-bottom: 12px;
 }
 
 /* Brand + logo */
@@ -52,7 +52,7 @@ header {
 }
 
 .logo {
-  height: 120px;
+  height: 48px; /* var 120px (for stort) */
   width: auto;
   object-fit: contain;
   border-radius: 8px;
@@ -122,6 +122,7 @@ button {
   font-weight: 600;
   transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+  white-space: nowrap;
 }
 
 button:hover {
@@ -133,6 +134,12 @@ button:hover {
 button:active {
   transform: translateY(0);
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+}
+
+/* Make filter button behave inside the grid */
+.filters > button {
+  height: 42px;
+  align-self: end;
 }
 
 /* Red button */
@@ -216,10 +223,17 @@ a:hover {
 /* Responsive */
 @media (max-width: 900px) {
   .container { padding: 18px; }
-  .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Make the reset button full width on mobile so it never overlaps */
+  .filters > button {
+    grid-column: span 2;
+    height: 42px;
+  }
+
   .logo { height: 40px; }
   .tagline { font-size: 22px; }
 }
-
-
-
