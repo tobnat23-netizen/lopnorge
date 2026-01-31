@@ -30,21 +30,55 @@ function formatKm(km) {
   return `${rounded} km`;
 }
 
+/* NEW: avoid broken HTML if data contains &, <, >, quotes */
+function escapeHtml(v) {
+  return String(v ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+/* NEW: normalize type for data-type attribute */
+function typeKey(t) {
+  const s = String(t ?? "").trim();
+  if (!s) return "Ukjent";
+  // keep exact labels you already use, but collapse extra whitespace
+  return s.replace(/\s+/g, " ");
+}
+
 function render(list) {
   el("count").textContent = `${list.length} løp`;
-  el("list").innerHTML = list.map(r => `
-    <article class="card">
-      <h3>${r.name}</h3>
-      <div class="sub">
-        <span class="badge">${r.date}</span>
-        <span class="badge">${formatKm(r.distance_km)}</span>
-        <span class="badge">${r.type}</span>
-        <span>${r.place}, ${r.county}</span>
-        <span class="badge">★ ${r.popularity ?? 1}</span>
-        ${r.url ? `<span>• <a href="${r.url}" target="_blank" rel="noopener">Påmelding/info</a></span>` : `<span>• (lenke kommer)</span>`}
-      </div>
-    </article>
-  `).join("");
+
+  el("list").innerHTML = list.map(r => {
+    const name = escapeHtml(r.name);
+    const date = escapeHtml(r.date);
+    const type = escapeHtml(r.type);
+    const place = escapeHtml(r.place);
+    const county = escapeHtml(r.county);
+    const url = r.url ? escapeHtml(r.url) : "";
+    const pop = escapeHtml(r.popularity ?? 1);
+
+    const dataType = escapeHtml(typeKey(r.type));
+
+    return `
+      <article class="card" data-type="${dataType}">
+        <h3>${name}</h3>
+        <div class="sub">
+          <span class="badge">${date}</span>
+          <span class="badge">${escapeHtml(formatKm(r.distance_km))}</span>
+          <span class="badge">${type}</span>
+          <span>${place}, ${county}</span>
+          <span class="badge">★ ${pop}</span>
+          ${r.url
+            ? `<span>• <a href="${url}" target="_blank" rel="noopener">Påmelding/info</a></span>`
+            : `<span>• (lenke kommer)</span>`
+          }
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
 function apply() {
