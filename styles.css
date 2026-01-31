@@ -52,7 +52,7 @@ header {
 }
 
 .logo {
-  height: 48px;
+  height: 120px;
   width: auto;
   object-fit: contain;
   border-radius: 8px;
@@ -220,5 +220,6 @@ a:hover {
   .logo { height: 40px; }
   .tagline { font-size: 22px; }
 }
+
 
 
