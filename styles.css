@@ -201,6 +201,27 @@ button:active {
   background: var(--surface);
   box-shadow: var(--shadow);
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+
+  /* NEW: for bakgrunnsmønster-layer */
+  position: relative;
+  overflow: hidden;
+}
+
+/* NEW: Subtil bakgrunn for alle kort (settes per type under) */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.075;            /* svak/halvgjennomsiktig */
+  background-size: 220px;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+/* NEW: sørg for at innhold ligger over mønsteret */
+.card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .card:hover {
@@ -220,6 +241,62 @@ button:active {
   gap: 10px;
   color: var(--muted);
   font-size: 13px;
+}
+
+/* NEW: Mønstre per løpstype via data-type */
+/* Terreng / Trail: konturlinjer */
+.card[data-type="Terreng"]::before,
+.card[data-type="Trail"]::before {
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220' fill='none' stroke='%23111827' stroke-width='1'>\
+<path d='M0 45 Q55 20 110 45 T220 45'/>\
+<path d='M0 85 Q70 60 140 85 T220 85'/>\
+<path d='M0 125 Q55 100 110 125 T220 125'/>\
+<path d='M0 165 Q70 140 140 165 T220 165'/>\
+</svg>");
+}
+
+/* Landevei: “asfalt/vei”-linjer */
+.card[data-type="Landevei"]::before {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(17, 24, 39, 0.9) 1px,
+    transparent 1px
+  );
+  background-size: 100% 16px;
+}
+
+/* Bane: spor/diagonale banestriper */
+.card[data-type="Bane"]::before {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(17, 24, 39, 0.85),
+    rgba(17, 24, 39, 0.85) 2px,
+    transparent 2px,
+    transparent 12px
+  );
+}
+
+/* Motbakke: “opp”-striper */
+.card[data-type="Motbakke"]::before {
+  background-image: repeating-linear-gradient(
+    -60deg,
+    rgba(17, 24, 39, 0.9),
+    rgba(17, 24, 39, 0.9) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+}
+
+/* Optional: hvis du bruker “Bane/vei” som type (du har det i sheet) */
+.card[data-type="Bane/vei"]::before {
+  background-image: repeating-linear-gradient(
+    30deg,
+    rgba(17, 24, 39, 0.85),
+    rgba(17, 24, 39, 0.85) 2px,
+    transparent 2px,
+    transparent 12px
+  );
 }
 
 /* Badges */
@@ -258,7 +335,6 @@ a:hover {
     height: 42px;
   }
 
-  .logo { height: 40px; }
+  .logo { height: 120px; }
   .tagline { font-size: 22px; }
 }
-
