@@ -25,6 +25,12 @@
   letter-spacing: -0.005em;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -52,7 +58,7 @@ header {
 }
 
 .logo {
-  height: 48px; /* var 120px (for stort) */
+  height: 48px;
   width: auto;
   object-fit: contain;
   border-radius: 8px;
@@ -83,14 +89,14 @@ p {
 .filters {
   display: grid;
 
-  /* 5 filter-felt + en egen "auto"-kolonne til knappen (hindrer overlap) */
+  /* 5 felter + en "auto"-kolonne til knappen (hindrer overlap på mellom-bredder) */
   grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
 
   gap: 12px;
   align-items: end;
 }
 
-/* CRITICAL: allow grid items to shrink instead of overflowing */
+/* KRITISK: grid-items må kunne krympe, ellers kan de "flyte" over naboen */
 .filters > * {
   min-width: 0;
 }
@@ -112,10 +118,9 @@ select {
   outline: none;
   transition: border-color 120ms ease, box-shadow 120ms ease;
 
-  /* keep controls inside their grid cell */
+  /* gjør at felt aldri stikker utenfor grid-cellen */
   width: 100%;
   min-width: 0;
-  box-sizing: border-box;
 }
 
 input:focus,
@@ -136,9 +141,8 @@ button {
   transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
 
-  /* keep button label on one line (safe because button is now in auto column) */
+  /* knappen holder seg "pen", men ligger nå i auto-kolonne */
   white-space: nowrap;
-  box-sizing: border-box;
 }
 
 button:hover {
@@ -152,14 +156,14 @@ button:active {
   box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
 }
 
-/* Make filter button behave inside the grid */
+/* Button inside the grid */
 .filters > button {
   height: 42px;
   align-self: end;
 
-  /* IMPORTANT: keep it inside its cell */
-  justify-self: stretch;
+  /* sørger for at den aldri overskrider cellen sin */
   max-width: 100%;
+  justify-self: stretch;
 }
 
 /* Red button */
@@ -248,7 +252,7 @@ a:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* Make the reset button full width on mobile so it never overlaps */
+  /* reset full width on mobile */
   .filters > button {
     grid-column: span 2;
     height: 42px;
