@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LøpNorge – Løpekalender 2026</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
 </head>
 
 <body>
+  <a href="#main" class="skip-link">Hopp til innhold</a>
+
   <header>
     <div class="container">
       <div class="brand">
@@ -15,18 +18,18 @@
         <h1 class="tagline">Finn ditt neste løp</h1>
       </div>
 
-      <div class="filters">
-        <label>
+      <div class="filters" aria-label="Filtre">
+        <label for="fromDate">
           Fra dato
           <input id="fromDate" type="date" />
         </label>
 
-        <label>
+        <label for="toDate">
           Til dato
           <input id="toDate" type="date" />
         </label>
 
-        <label>
+        <label for="type">
           Type
           <select id="type">
             <option value="">Alle</option>
@@ -34,30 +37,34 @@
             <option value="Terreng">Terreng</option>
             <option value="Trail">Trail</option>
             <option value="Bane">Bane</option>
+            <option value="Motbakke">Motbakke</option>
+            <option value="Bane/vei">Bane/vei</option>
           </select>
         </label>
 
-        <label>
+        <label for="maxKm">
           Maks distanse (km)
-          <input id="maxKm" type="number" min="0" step="0.1" placeholder="f.eks. 10" />
+          <input id="maxKm" type="number" min="0" step="0.1" placeholder="f.eks. 10" inputmode="decimal" />
         </label>
 
-        <label>
+        <label for="q">
           Søk
           <input id="q" type="search" placeholder="Bergen, maraton, Os..." />
         </label>
 
-        <button id="reset" class="btn-danger">Nullstill</button>
+        <button id="reset" class="btn-danger" type="button" aria-label="Nullstill alle filtre">
+          Nullstill
+        </button>
       </div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="main" class="container">
     <div class="meta">
-      <span id="count">Laster…</span>
+      <span id="count" aria-live="polite">Laster…</span>
       <span class="spacer"></span>
 
-      <label>
+      <label for="sort">
         Sortering
         <select id="sort">
           <option value="featured">Populære først</option>
@@ -68,9 +75,9 @@
       </label>
     </div>
 
-    <div id="list" class="list"></div>
+    <div id="list" class="list" aria-label="Løpsliste"></div>
   </main>
 
-  <script src="app.js"></script>
+  <!-- script flyttet til head med defer -->
 </body>
 </html>
