@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LøpNorge – Løpekalender 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="brand">
+  <img class="logo" src="logo.png" alt="LøpNorge logo" />
+  <h1 class="tagline">Finn ditt neste løp</h1>
+</div>
+
+
+
+
+    <div class="filters">
+      <label>
+        Fra dato
+        <input id="fromDate" type="date" />
+      </label>
+
+      <label>
+        Til dato
+        <input id="toDate" type="date" />
+      </label>
+
+      <label>
+        Type
+        <select id="type">
+          <option value="">Alle</option>
+          <option value="Landevei">Landevei</option>
+          <option value="Terreng">Terreng</option>
+          <option value="Trail">Trail</option>
+          <option value="Bane">Bane</option>
+        </select>
+      </label>
+
+      <label>
+        Maks distanse (km)
+        <input id="maxKm" type="number" min="0" step="0.1" placeholder="f.eks. 10" />
+      </label>
+
+      <label>
+        Søk
+        <input id="q" type="search" placeholder="Bergen, maraton, Os..." />
+      </label>
+
+      <button id="reset" class="btn-danger">Nullstill</button>
+
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="meta">
+      <span id="count">Laster…</span>
+      <span class="spacer"></span>
+
+      <label>
+        Sortering
+        <select id="sort">
+          <option value="featured">Populære først</option>
+          <option value="date">Dato</option>
+          <option value="distance">Distanse</option>
+          <option value="name">Navn</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="list" class="list"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
