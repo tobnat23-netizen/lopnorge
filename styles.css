@@ -404,4 +404,114 @@ a:hover {
   left: 10px;
 }
 
+/* =========================
+   Premium header + filters
+   ========================= */
+
+header{
+  border-bottom: 1px solid rgba(229,231,235,0.85);
+  padding-bottom: 22px;
+}
+
+/* Gjør headeren litt mer "hero" */
+header .container{
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+/* Brand-linje: mer luft + bedre alignment */
+.brand{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+/* LOGO: større + ingen hvit boks/padding */
+.logo{
+  height: 64px;       /* større */
+  width: auto;
+  object-fit: contain;
+  background: transparent;   /* viktig */
+  border: none;              /* viktig */
+  padding: 0;                /* viktig */
+  border-radius: 0;          /* logo skal være logo, ikke "kort" */
+  box-shadow: none;          /* fjern kort-følelse */
+  display: block;
+}
+
+/* Tittel: litt mer premium typografi */
+.tagline{
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+/* FILTERPANEL: mer brukervennlig og "premium" */
+.filters{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+  gap: 14px;
+  align-items: end;
+
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(229,231,235,0.75);
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 50px rgba(17,24,39,0.08);
+}
+
+/* KRITISK for grid: items kan krympe */
+.filters > *{ min-width: 0; }
+
+/* Labels: tydeligere og mer moderne */
+.filters label{
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgba(17,24,39,0.70);
+}
+
+/* Inputs: litt høyere + mykere */
+input, select{
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(229,231,235,0.9);
+  background: rgba(255,255,255,0.92);
+  color: var(--text);
+  width: 100%;
+  min-width: 0;
+  outline: none;
+  transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+input:hover, select:hover{
+  background: #fff;
+  border-color: rgba(209,213,219,1);
+}
+
+input:focus, select:focus{
+  border-color: rgba(37,99,235,0.7);
+  box-shadow: 0 0 0 5px rgba(37,99,235,0.14);
+}
+
+/* Reset-knappen: litt mer "CTA" */
+.filters > button{
+  height: 46px;
+  border-radius: 14px;
+  padding: 12px 16px;
+  justify-self: stretch;
+}
+
+/* Mobil: mer behagelig stacking */
+@media (max-width: 900px){
+  .logo{ height: 52px; }
+  .t
+
+
 
