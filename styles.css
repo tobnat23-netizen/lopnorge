@@ -384,3 +384,24 @@ a:hover {
   .logo { height: 44px; }
   .tagline { font-size: 24px; }
 }
+
+/* Skip to content (accessibility) */
+.skip-link{
+  position: absolute;
+  left: -9999px;
+  top: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(229,231,235,0.9);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(17,24,39,0.10);
+  color: var(--text);
+  font-weight: 600;
+  z-index: 1000;
+}
+
+.skip-link:focus{
+  left: 10px;
+}
+
+
