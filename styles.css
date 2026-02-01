@@ -212,11 +212,12 @@ button:active {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.075;            /* svak/halvgjennomsiktig */
-  background-size: 220px;
+  opacity: 0.14;              /* tydeligere, men fortsatt subtil */
+  background-size: 180px;     /* tettere mønster */
   background-repeat: repeat;
   pointer-events: none;
 }
+
 
 /* NEW: sørg for at innhold ligger over mønsteret */
 .card > * {
@@ -338,3 +339,4 @@ a:hover {
   .logo { height: 120px; }
   .tagline { font-size: 22px; }
 }
+
