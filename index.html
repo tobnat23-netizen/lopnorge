@@ -4,6 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LøpNorge – Løpekalender 2026</title>
+
+  <meta name="description" content="LøpNorge – finn ditt neste løp i Vestland. Filtrer på dato, type, distanse og søk etter sted eller løpsnavn." />
+  <meta name="theme-color" content="#2563eb" />
+
+  <!-- Premium font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
   <script src="app.js" defer></script>
 </head>
@@ -18,7 +27,7 @@
         <h1 class="tagline">Finn ditt neste løp</h1>
       </div>
 
-      <div class="filters" aria-label="Filtre">
+      <form class="filters" aria-label="Filtre" onsubmit="return false;">
         <label for="fromDate">
           Fra dato
           <input id="fromDate" type="date" />
@@ -49,13 +58,13 @@
 
         <label for="q">
           Søk
-          <input id="q" type="search" placeholder="Bergen, maraton, Os..." />
+          <input id="q" type="search" placeholder="Bergen, maraton, Os..." autocomplete="off" />
         </label>
 
         <button id="reset" class="btn-danger" type="button" aria-label="Nullstill alle filtre">
           Nullstill
         </button>
-      </div>
+      </form>
     </div>
   </header>
 
@@ -77,7 +86,5 @@
 
     <div id="list" class="list" aria-label="Løpsliste"></div>
   </main>
-
-  <!-- script flyttet til head med defer -->
 </body>
 </html>
