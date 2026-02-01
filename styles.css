@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
 
   /* Theme tokens */
   --bg: #f6f8fc;
@@ -12,11 +12,14 @@
   --primary: #2563eb; /* blue */
   --danger: #dc2626;  /* red */
 
-  --badge-bg: #eef2ff;
-  --badge-border: #c7d2fe;
-  --badge-text: #1e3a8a;
+  /* Premium neutrals for chips */
+  --chip-bg: rgba(17, 24, 39, 0.04);
+  --chip-border: rgba(17, 24, 39, 0.08);
+  --chip-text: rgba(17, 24, 39, 0.82);
 
-  --shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+  --shadow-sm: 0 8px 22px rgba(17, 24, 39, 0.06);
+  --shadow-md: 0 14px 40px rgba(17, 24, 39, 0.08);
+  --shadow-lg: 0 22px 60px rgba(17, 24, 39, 0.12);
 
   /* Text rendering polish */
   text-rendering: geometricPrecision;
@@ -33,20 +36,24 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 600px at 18% -5%, rgba(37, 99, 235, 0.12), transparent 62%),
+    radial-gradient(1100px 550px at 92% 2%, rgba(220, 38, 38, 0.07), transparent 58%),
+    radial-gradient(900px 450px at 60% 85%, rgba(37, 99, 235, 0.05), transparent 60%),
+    var(--bg);
   color: var(--text);
 }
 
 .container {
-  max-width: 980px;
+  max-width: 1020px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 28px 24px;
 }
 
 /* Header */
 header {
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.85);
+  padding-bottom: 18px;
 }
 
 /* Brand + logo */
@@ -54,30 +61,34 @@ header {
   display: flex;
   gap: 14px;
   align-items: center;
-  margin-bottom: 12px;
+  padding-top: 8px;
+  margin-bottom: 14px;
 }
 
 .logo {
-  height: 120px;
+  height: 56px;
   width: auto;
   object-fit: contain;
-  border-radius: 8px;
-  background: var(--bg);
-  padding: 4px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(229, 231, 235, 0.7);
+  padding: 6px;
+  box-shadow: 0 10px 26px rgba(17, 24, 39, 0.05);
 }
 
 /* Headline / tagline */
 h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 30px;
+  letter-spacing: -0.02em;
 }
 
 .tagline {
   margin: 0;
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
 }
 
 p {
@@ -94,6 +105,15 @@ p {
 
   gap: 12px;
   align-items: end;
+
+  /* Premium panel */
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(229, 231, 235, 0.75);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
 }
 
 /* KRITISK: grid-items må kunne krympe, ellers kan de "flyte" over naboen */
@@ -105,75 +125,80 @@ p {
   display: grid;
   gap: 6px;
   font-size: 12px;
-  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(17, 24, 39, 0.70);
 }
 
 input,
 select {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   color: var(--text);
   outline: none;
-  transition: border-color 120ms ease, box-shadow 120ms ease;
+  transition: border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
 
   /* gjør at felt aldri stikker utenfor grid-cellen */
   width: 100%;
   min-width: 0;
 }
 
+input:hover,
+select:hover {
+  background: #ffffff;
+  border-color: rgba(209, 213, 219, 1);
+}
+
 input:focus,
 select:focus {
   border-color: rgba(37, 99, 235, 0.6);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
 }
 
 /* Buttons */
 button {
   cursor: pointer;
-  padding: 10px 14px;
-  border-radius: 10px;
+  padding: 11px 14px;
+  border-radius: 12px;
   border: 1px solid transparent;
-  background: var(--primary);
+  background: linear-gradient(180deg, rgba(37,99,235,1), rgba(37,99,235,0.92));
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 750;
+  letter-spacing: -0.01em;
   transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
-
-  /* knappen holder seg "pen", men ligger nå i auto-kolonne */
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
   white-space: nowrap;
 }
 
 button:hover {
-  filter: brightness(0.97);
+  filter: brightness(0.98);
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.22);
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.22);
 }
 
 button:active {
   transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
 }
 
 /* Button inside the grid */
 .filters > button {
-  height: 42px;
+  height: 44px;
   align-self: end;
-
-  /* sørger for at den aldri overskrider cellen sin */
   max-width: 100%;
   justify-self: stretch;
 }
 
 /* Red button */
 .btn-danger {
-  background: var(--danger);
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.18);
+  background: linear-gradient(180deg, rgba(220,38,38,1), rgba(220,38,38,0.92));
+  box-shadow: 0 10px 24px rgba(220, 38, 38, 0.18);
 }
 
 .btn-danger:hover {
-  box-shadow: 0 10px 24px rgba(220, 38, 38, 0.22);
+  box-shadow: 0 16px 34px rgba(220, 38, 38, 0.22);
 }
 
 /* Meta row */
@@ -191,69 +216,70 @@ button:active {
 /* List + cards */
 .list {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .card {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 16px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-md);
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 
-  /* NEW: for bakgrunnsmønster-layer */
+  /* bakgrunnsmønster-layer */
   position: relative;
   overflow: hidden;
 }
 
-/* NEW: Subtil bakgrunn for alle kort (settes per type under) */
+/* Subtil bakgrunn for alle kort (settes per type under) */
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.14;              /* tydeligere, men fortsatt subtil */
+  opacity: 0.16;              /* litt tydeligere */
   background-size: 180px;     /* tettere mønster */
   background-repeat: repeat;
   pointer-events: none;
 }
 
-
-/* NEW: sørg for at innhold ligger over mønsteret */
+/* sørg for at innhold ligger over mønsteret */
 .card > * {
   position: relative;
   z-index: 1;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(17, 24, 39, 0.10);
-  border-color: rgba(37, 99, 235, 0.25);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(37, 99, 235, 0.24);
 }
 
 .card h3 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 18px;
+  letter-spacing: -0.01em;
 }
 
 .card .sub {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.35;
 }
 
-/* NEW: Mønstre per løpstype via data-type */
-/* Terreng / Trail: konturlinjer */
+/* Mønstre per løpstype via data-type */
+/* Terreng / Trail: skarpere konturlinjer */
 .card[data-type="Terreng"]::before,
 .card[data-type="Trail"]::before {
   background-image: url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220' fill='none' stroke='%23111827' stroke-width='1'>\
-<path d='M0 45 Q55 20 110 45 T220 45'/>\
-<path d='M0 85 Q70 60 140 85 T220 85'/>\
-<path d='M0 125 Q55 100 110 125 T220 125'/>\
-<path d='M0 165 Q70 140 140 165 T220 165'/>\
+<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180' fill='none' stroke='%23111827' stroke-width='1.6'>\
+<path d='M0 35 Q45 15 90 35 T180 35'/>\
+<path d='M0 70 Q60 50 120 70 T180 70'/>\
+<path d='M0 105 Q45 85 90 105 T180 105'/>\
+<path d='M0 140 Q60 120 120 140 T180 140'/>\
 </svg>");
 }
 
@@ -261,18 +287,18 @@ button:active {
 .card[data-type="Landevei"]::before {
   background-image: linear-gradient(
     to bottom,
-    rgba(17, 24, 39, 0.9) 1px,
-    transparent 1px
+    rgba(17, 24, 39, 1) 1.5px,
+    transparent 1.5px
   );
-  background-size: 100% 16px;
+  background-size: 100% 14px;
 }
 
 /* Bane: spor/diagonale banestriper */
 .card[data-type="Bane"]::before {
   background-image: repeating-linear-gradient(
     45deg,
-    rgba(17, 24, 39, 0.85),
-    rgba(17, 24, 39, 0.85) 2px,
+    rgba(17, 24, 39, 0.92),
+    rgba(17, 24, 39, 0.92) 2px,
     transparent 2px,
     transparent 12px
   );
@@ -282,34 +308,35 @@ button:active {
 .card[data-type="Motbakke"]::before {
   background-image: repeating-linear-gradient(
     -60deg,
-    rgba(17, 24, 39, 0.9),
-    rgba(17, 24, 39, 0.9) 2px,
-    transparent 2px,
-    transparent 14px
+    rgba(17, 24, 39, 1),
+    rgba(17, 24, 39, 1) 2.5px,
+    transparent 2.5px,
+    transparent 12px
   );
 }
 
-/* Optional: hvis du bruker “Bane/vei” som type (du har det i sheet) */
+/* Optional: hvis du bruker “Bane/vei” som type */
 .card[data-type="Bane/vei"]::before {
   background-image: repeating-linear-gradient(
     30deg,
-    rgba(17, 24, 39, 0.85),
-    rgba(17, 24, 39, 0.85) 2px,
+    rgba(17, 24, 39, 0.92),
+    rgba(17, 24, 39, 0.92) 2px,
     transparent 2px,
     transparent 12px
   );
 }
 
-/* Badges */
+/* Badges (roligere, mer premium) */
 .badge {
   display: inline-block;
-  padding: 4px 9px;
+  padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid var(--badge-border);
-  background: var(--badge-bg);
-  color: var(--badge-text);
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--chip-text);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 /* Links */
@@ -320,6 +347,24 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* Make "Påmelding/info" feel like a pill button */
+.card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  background: rgba(37, 99, 235, 0.08);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.card a:hover {
+  background: rgba(37, 99, 235, 0.12);
+  text-decoration: none;
 }
 
 /* Responsive */
@@ -333,10 +378,9 @@ a:hover {
   /* reset full width on mobile */
   .filters > button {
     grid-column: span 2;
-    height: 42px;
+    height: 44px;
   }
 
-  .logo { height: 120px; }
-  .tagline { font-size: 22px; }
+  .logo { height: 44px; }
+  .tagline { font-size: 24px; }
 }
-
